@@ -436,7 +436,42 @@ header.scrolled{
 .svc-link{
     display:inline-flex;align-items:center;gap:7px;margin-top:20px;
     font-size:.88rem;font-weight:600;color:var(--green-600);
+    cursor:pointer;
 }
+/* modal de serviço */
+.modal-overlay{
+    position:fixed;inset:0;z-index:1500;
+    background:rgba(3,41,30,.55);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    display:grid;place-items:center;padding:20px;
+    opacity:0;pointer-events:none;transition:opacity .35s ease;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-card{
+    background:#fff;border-radius:26px;padding:42px;max-width:560px;width:100%;
+    position:relative;box-shadow:0 40px 120px rgba(3,41,30,.45);
+    transform:translateY(26px) scale(.96);
+    transition:transform .4s cubic-bezier(.2,.8,.2,1);
+    max-height:88vh;overflow-y:auto;
+}
+.modal-overlay.open .modal-card{transform:none}
+.modal-close{
+    position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:11px;
+    border:1px solid var(--line);background:var(--bg-soft);cursor:pointer;
+    display:grid;place-items:center;color:var(--ink);
+    transition:background .25s,border-color .25s,transform .25s;
+}
+.modal-close:hover{background:var(--green-50);border-color:var(--green-400);transform:rotate(90deg)}
+.modal-close svg{width:17px;height:17px}
+.modal-card .svc-ico{margin-bottom:20px}
+.modal-card h3{font-size:1.45rem;margin-bottom:12px}
+.modal-card>p{color:var(--text);font-size:.97rem}
+.modal-list{list-style:none;margin:20px 0 4px;display:grid;gap:11px}
+.modal-list li{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:var(--ink);font-weight:500;line-height:1.5}
+.modal-list svg{width:18px;height:18px;color:var(--green-600);flex-shrink:0;margin-top:3px}
+.modal-ctas{margin-top:28px}
+.modal-ctas .btn-primary{width:100%}
+@media(max-width:600px){.modal-card{padding:30px 24px}}
 .svc-link svg{width:15px;height:15px;transition:transform .25s}
 .service-card:hover .svc-link svg{transform:translateX(5px)}
 .featured-list{list-style:none;margin-top:26px}
@@ -935,7 +970,7 @@ footer .footer-about{font-size:.92rem;max-width:300px}
             </div>
             <h3>Automação de Processos</h3>
             <p>Transformamos atividades manuais em fluxos inteligentes, reduzindo erros e aumentando produtividade.</p>
-            <span class="svc-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="svc-link" data-svc="automacao">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
 
         <div class="service-card reveal">
@@ -944,7 +979,7 @@ footer .footer-about{font-size:.92rem;max-width:300px}
             </div>
             <h3>Desenvolvimento de Sistemas</h3>
             <p>Sistemas web, aplicativos e plataformas personalizadas, construídos para a sua operação.</p>
-            <span class="svc-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="svc-link" data-svc="sistemas">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
 
         <div class="service-card reveal">
@@ -953,7 +988,7 @@ footer .footer-about{font-size:.92rem;max-width:300px}
             </div>
             <h3>IA para Gestão</h3>
             <p>Relatórios automáticos, indicadores em tempo real e apoio inteligente à tomada de decisão.</p>
-            <span class="svc-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="svc-link" data-svc="gestao">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
 
         <div class="service-card reveal">
@@ -962,7 +997,7 @@ footer .footer-about{font-size:.92rem;max-width:300px}
             </div>
             <h3>Treinamentos Corporativos</h3>
             <p>Capacitação prática para sua equipe usar IA e automação de forma estratégica no dia a dia.</p>
-            <span class="svc-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            <span class="svc-link" data-svc="treinamentos">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </div>
 
         <div class="service-card wide reveal">
@@ -972,7 +1007,7 @@ footer .footer-about{font-size:.92rem;max-width:300px}
             <div>
                 <h3>Consultoria Tecnológica</h3>
                 <p>Mapeamento de oportunidades e implementação de soluções digitais de alto impacto — um plano claro de onde a tecnologia gera mais retorno para o seu negócio.</p>
-                <span class="svc-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+                <span class="svc-link" data-svc="consultoria">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
             </div>
         </div>
     </div>
@@ -1228,6 +1263,25 @@ footer .footer-about{font-size:.92rem;max-width:300px}
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.074-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
+<!-- modal de serviço -->
+<div class="modal-overlay" id="svcModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+        <button class="modal-close" id="modalClose" aria-label="Fechar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="svc-ico" id="modalIco"></div>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <ul class="modal-list" id="modalList"></ul>
+        <div class="modal-ctas">
+            <a id="modalWa" class="btn btn-primary" target="_blank" rel="noopener">
+                <svg style="width:19px;height:19px" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.074-.149-.668-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span>Falar com especialista no WhatsApp</span>
+            </a>
+        </div>
+    </div>
+</div>
+
 <button id="toTop" aria-label="Voltar ao topo">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
@@ -1388,6 +1442,88 @@ document.querySelectorAll('.service-card').forEach(card => {
         card.style.setProperty('--my', (e.clientY - r.top) + 'px');
     });
 });
+
+/* ---- modal de serviços ---- */
+const SERVICES = {
+    automacao: {
+        title: 'Automação de Processos',
+        desc: 'Mapeamos as tarefas manuais e repetitivas da sua operação e as transformamos em fluxos automáticos que rodam sozinhos — sem erros, sem esquecimentos e sem depender de ninguém lembrar.',
+        items: [
+            'Cobranças, boletos e notas emitidos automaticamente',
+            'Agendamentos e confirmações sem intervenção humana',
+            'Integração entre WhatsApp, planilhas, ERPs e sistemas',
+            'Rotinas e relatórios executados no horário certo, todo dia'
+        ]
+    },
+    sistemas: {
+        title: 'Desenvolvimento de Sistemas',
+        desc: 'Construímos sistemas web, aplicativos e plataformas sob medida para a sua operação — nada de ferramenta genérica que obriga o seu negócio a se adaptar. O sistema nasce do jeito que você trabalha.',
+        items: [
+            'Sistemas de gestão, CRMs e painéis personalizados',
+            'Aplicativos e plataformas web modernas e rápidas',
+            'Integração total com as ferramentas que você já usa',
+            'Evolução contínua conforme o negócio cresce'
+        ]
+    },
+    gestao: {
+        title: 'IA para Gestão',
+        desc: 'Coloque a Inteligência Artificial trabalhando para quem decide: relatórios que se montam sozinhos, indicadores em tempo real e análises que mostram onde agir antes do problema aparecer.',
+        items: [
+            'Relatórios automáticos enviados direto para você',
+            'Indicadores do negócio em tempo real, em um só painel',
+            'Análises e insights gerados por IA sobre seus dados',
+            'Alertas inteligentes de desvios e oportunidades'
+        ]
+    },
+    treinamentos: {
+        title: 'Treinamentos Corporativos',
+        desc: 'Capacitamos a sua equipe para usar IA e automação no dia a dia real do trabalho — treinamento prático, com os casos da sua própria operação, do básico ao avançado.',
+        items: [
+            'Turmas práticas, presenciais ou online',
+            'Conteúdo adaptado à realidade da sua empresa',
+            'Equipe produzindo mais já na primeira semana',
+            'Material de apoio e acompanhamento pós-treinamento'
+        ]
+    },
+    consultoria: {
+        title: 'Consultoria Tecnológica',
+        desc: 'Um raio-x completo da sua operação para descobrir onde a tecnologia gera mais retorno: mapeamos gargalos, priorizamos por impacto e entregamos um plano claro de implementação.',
+        items: [
+            'Diagnóstico completo de processos e sistemas',
+            'Plano de ação priorizado por retorno financeiro',
+            'Acompanhamento da implementação de ponta a ponta',
+            'Visão de engenharia aplicada ao negócio'
+        ]
+    }
+};
+const svcModal = document.getElementById('svcModal');
+const modalIco = document.getElementById('modalIco');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalList = document.getElementById('modalList');
+const modalWa = document.getElementById('modalWa');
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>';
+document.querySelectorAll('.svc-link[data-svc]').forEach(link => {
+    link.addEventListener('click', () => {
+        const data = SERVICES[link.dataset.svc];
+        if (!data) return;
+        const cardIco = link.closest('.service-card').querySelector('.svc-ico');
+        modalIco.innerHTML = cardIco ? cardIco.innerHTML : '';
+        modalTitle.textContent = data.title;
+        modalDesc.textContent = data.desc;
+        modalList.innerHTML = data.items.map(i => '<li>' + CHECK_SVG + '<span>' + i + '</span></li>').join('');
+        modalWa.href = 'https://wa.me/5592993105644?text=' + encodeURIComponent('Olá! Me interessei por ' + data.title + ' e quero falar com um especialista da Automus.');
+        svcModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+});
+function closeSvcModal() {
+    svcModal.classList.remove('open');
+    document.body.style.overflow = '';
+}
+document.getElementById('modalClose').addEventListener('click', closeSvcModal);
+svcModal.addEventListener('click', e => { if (e.target === svcModal) closeSvcModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSvcModal(); });
 
 /* ---- FAQ accordion ---- */
 document.querySelectorAll('.faq-item').forEach(item => {
